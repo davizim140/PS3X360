@@ -10,10 +10,11 @@ Cobertura:
 - seleção por índice;
 - rejeição de índices inválidos;
 - navegação circular;
+- mapeamento lógico dos botões D-pad, A e B;
 - rejeição de menus vazios ou categorias sem itens.
 
 ## CI
 O workflow `.github/workflows/core-tests.yml` executa build e testes em Windows e Ubuntu. Veja a aba **Actions** no GitHub.
 
 ## Console Xbox 360
-Ainda não suportado: não existe XEX neste projeto. Testes de PC não provam compatibilidade com o console.
+Ainda não suportado: não existe XEX neste projeto. O mapeamento de botões é apenas uma abstração; não lê um controle real. Testes de PC não provam compatibilidade com o console.
