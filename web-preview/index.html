@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PS3X360 — Prévia XMB</title>
+<style>
+:root{color-scheme:dark;--cyan:#9feaff;--white:#f4fbff;--muted:#c8dce8}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Segoe UI,Arial,sans-serif;color:var(--white);overflow:hidden}
+body{background:radial-gradient(ellipse at 50% 110%,#2a90b5 0,#10547e 25%,#09233f 55%,#030b1b 100%)}
+body:before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(165deg,transparent 0 70px,#b6f1ff0a 71px 73px,transparent 74px 150px);pointer-events:none}
+.glow{position:fixed;left:-15%;top:25%;width:130%;height:50%;border-radius:50%;border-top:2px solid #a5edff66;transform:rotate(-8deg);filter:drop-shadow(0 0 18px #65dfff88);pointer-events:none}
+header{position:absolute;top:5%;left:5%;right:5%;display:flex;justify-content:space-between;align-items:center;text-shadow:0 2px 8px #000}
+.brand{font-size:clamp(22px,3vw,38px);font-weight:300;letter-spacing:.12em}.brand b{font-weight:700;color:var(--cyan)}.clock{font-size:clamp(14px,1.6vw,20px);color:#e2f8ff}
+.status{position:absolute;top:13%;left:5%;font-size:12px;letter-spacing:.2em;color:#a8d9ed;text-transform:uppercase}
+.categories{position:absolute;top:29%;left:5%;right:5%;display:flex;align-items:center;gap:clamp(22px,4vw,58px);height:84px;white-space:nowrap;overflow:visible}
+.category{border:0;background:transparent;color:#b9d7e7;font-size:clamp(13px,1.5vw,19px);padding:12px 0;cursor:pointer;opacity:.7;transition:.2s}
+.category .symbol{display:block;font-size:clamp(30px,4vw,48px);margin-bottom:10px;text-align:center;color:#b5e8fa;text-shadow:0 0 14px #56bce7}
+.category.active{opacity:1;transform:scale(1.14);color:white}.category.active .symbol{color:white;text-shadow:0 0 18px #a8efff}
+.panel{position:absolute;top:48%;left:7%;width:min(520px,86vw);padding:20px 24px;border-left:1px solid #c8f2ff88;background:linear-gradient(90deg,#07172dbb,#07172d22);backdrop-filter:blur(3px)}
+.panel h1{font-size:clamp(22px,3vw,32px);font-weight:300;margin:0 0 14px}.items{display:grid;gap:6px}
+.item{display:flex;align-items:center;gap:14px;padding:10px 14px;border:1px solid transparent;background:#06172a42;color:#d8eff9;font-size:clamp(14px,1.5vw,18px);cursor:pointer;text-align:left}
+.item .ico{width:28px;text-align:center;color:#9de6ff;font-size:22px}.item.active{background:linear-gradient(90deg,#75dfff55,#a2edff12);border-color:#c6f5ff88;color:white;box-shadow:0 0 20px #4cc9ff1a}
+.details{margin-top:18px;color:#c5dfeb;font-size:13px;line-height:1.55}.notice{color:#9fc7d9;font-size:11px;margin-top:12px}
+footer{position:absolute;bottom:5%;left:5%;right:5%;display:flex;justify-content:space-between;gap:12px;color:#b7d6e6;font-size:12px}.keys{display:flex;gap:14px;flex-wrap:wrap}.key{display:inline-flex;align-items:center;gap:5px}.pill{border:1px solid #c8f2ff99;border-radius:50%;width:18px;height:18px;display:inline-grid;place-items:center;color:white;font-size:10px}
+.toast{position:absolute;right:5%;bottom:13%;max-width:280px;padding:12px 16px;background:#071b30dd;border:1px solid #91e6ff66;color:#e9faff;display:none}
+@media(max-width:620px){.categories{top:23%;gap:18px;overflow-x:auto;padding:8px 4px}.category{min-width:62px}.panel{top:43%;left:5%;width:90%;padding:14px}.status{top:12%}footer{font-size:10px}.details{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<header><div class="brand">PS3<b>X360</b></div><div class="clock" id="clock">--:--</div></header>
+<div class="status">XMB interface concept · build de navegação</div>
+<nav class="categories" id="categories" aria-label="Categorias">
+<button class="category active" data-cat="jogos"><span class="symbol">◈</span>Jogos</button>
+<button class="category" data-cat="homebrew"><span class="symbol">⌘</span>Homebrew</button>
+<button class="category" data-cat="multimedia"><span class="symbol">♫</span>Música</button>
+<button class="category" data-cat="imagens"><span class="symbol">▧</span>Imagens</button>
+<button class="category" data-cat="sistema"><span class="symbol">⚙</span>Sistema</button>
+</nav>
+<section class="panel"><h1 id="heading">Jogos</h1><div class="items" id="items"></div><div class="details" id="details">Selecione um item para ver sua descrição.</div><div class="notice">Prévia visual no navegador — não inicia jogos nem acessa o hardware Xbox.</div></section>
+<div class="toast" id="toast" role="status"></div>
+<footer><div class="keys"><span class="key"><span class="pill">←</span><span class="pill">→</span> Categoria</span><span class="key"><span class="pill">↑</span><span class="pill">↓</span> Item</span><span class="key"><span class="pill">A</span> Selecionar</span></div><span>PS3X360 · projeto homebrew experimental</span></footer>
+<script>
+const data={
+ jogos:{title:"Jogos",items:[["▣","Biblioteca de jogos","A futura biblioteca deverá listar jogos encontrados no armazenamento do console."],["▤","Recentemente jogados","Histórico local planejado; ainda não conectado ao Xbox."],["☆","Favoritos","Atalhos favoritos planejados."]]},
+ homebrew:{title:"Homebrew",items:[["⌂","Aurora","O Aurora permanece como dashboard principal e opção de recuperação."],["◉","Emuladores","Atalhos para homebrews serão implementados após integração nativa."],["＋","Adicionar aplicativo","A descoberta de executáveis ainda não está implementada."]]},
+ multimedia:{title:"Música",items:[["♫","Reprodutor de música","Interface de demonstração. Reprodução de áudio não está conectada."],["≋","Listas de reprodução","Recurso planejado para uma etapa posterior."]]},
+ imagens:{title:"Imagens",items:[["▧","Galeria","A galeria real exigirá acesso ao sistema de arquivos do console."],["▣","Planos de fundo","Personalização visual planejada."]]},
+ sistema:{title:"Sistema",items:[["⚙","Configurações","Opções visuais desta prévia."],["ⓘ","Sobre PS3X360","Dashboard homebrew em desenvolvimento; sem XEX disponível."],["↻","Retornar ao Aurora","O retorno automático só poderá ser implementado e testado no console."]]}
+};
+let cat="jogos",idx=0;
+const cats=[...document.querySelectorAll(".category")],itemsEl=document.getElementById("items");
+function render(){cats.forEach(b=>b.classList.toggle("active",b.dataset.cat===cat));document.getElementById("heading").textContent=data[cat].title;itemsEl.innerHTML="";data[cat].items.forEach((it,i)=>{const b=document.createElement("button");b.className="item"+(i===idx?" active":"");b.innerHTML='<span class="ico">'+it[0]+'</span><span>'+it[1]+'</span>';b.onclick=()=>{idx=i;render();};itemsEl.appendChild(b)});document.getElementById("details").textContent=data[cat].items[idx]?.[2]||""}
+function moveCat(n){let i=cats.findIndex(b=>b.dataset.cat===cat);i=(i+n+cats.length)%cats.length;cat=cats[i].dataset.cat;idx=0;render()}
+function act(){const it=data[cat].items[idx];const t=document.getElementById("toast");t.textContent=it[1]+": "+it[2];t.style.display="block";setTimeout(()=>t.style.display="none",3200)}
+cats.forEach(b=>b.onclick=()=>{cat=b.dataset.cat;idx=0;render()});
+document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")moveCat(-1);else if(e.key==="ArrowRight")moveCat(1);else if(e.key==="ArrowUp"){idx=(idx-1+data[cat].items.length)%data[cat].items.length;render()}else if(e.key==="ArrowDown"){idx=(idx+1)%data[cat].items.length;render()}else if(e.key==="Enter"||e.key.toLowerCase()==="a")act()});
+function tick(){document.getElementById("clock").textContent=new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",minute:"2-digit"}).format(new Date())}tick();setInterval(tick,15000);render();
+</script>
+</body>
+</html>
