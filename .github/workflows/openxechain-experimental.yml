@@ -2,6 +2,9 @@ name: Experimental OpenXeChain toolchain build
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/openxechain-experimental.yml'
 
 permissions:
   contents: read
