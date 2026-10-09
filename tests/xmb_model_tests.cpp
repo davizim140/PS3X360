@@ -1,4 +1,5 @@
 #include "xmb_model.hpp"
+#include "controller_mapper.hpp"
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
@@ -44,6 +45,14 @@ int main() {
   check(model.current_category().id == "network", "left wraps to last category");
   check_throws([] { XmbModel invalid({}); }, "empty category list rejected");
   check_throws([] { XmbModel invalid({Category{"empty","Empty",{}}}); }, "category without items rejected");
+
+  check(map_button(PhysicalButton::DpadLeft) == InputAction::Left, "D-pad left maps to left");
+  check(map_button(PhysicalButton::DpadRight) == InputAction::Right, "D-pad right maps to right");
+  check(map_button(PhysicalButton::DpadUp) == InputAction::Up, "D-pad up maps to up");
+  check(map_button(PhysicalButton::DpadDown) == InputAction::Down, "D-pad down maps to down");
+  check(map_button(PhysicalButton::A) == InputAction::Confirm, "A maps to confirm");
+  check(map_button(PhysicalButton::B) == InputAction::Back, "B maps to back");
+  check(map_button(PhysicalButton::Other) == InputAction::None, "unknown button is ignored");
   if (failures) { std::cerr << failures << " test(s) failed.\n"; return EXIT_FAILURE; }
   std::cout << "All PS3X360 core tests passed.\n"; return EXIT_SUCCESS;
 }
