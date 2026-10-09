@@ -25,7 +25,7 @@ main{position:absolute;inset:0}.categories{position:absolute;top:25.5%;left:5.3%
 .cat.selected{transform:scale(1.24);opacity:1;color:#fff;filter:drop-shadow(0 0 9px #d0f2ff88)}
 .cat.selected:after{content:"";position:absolute;z-index:-1;left:-20px;right:-20px;top:-16px;bottom:-16px;background:radial-gradient(ellipse,#b9eaff28,transparent 72%)}
 .cat:focus-visible,.entry:focus-visible{outline:1px solid white;outline-offset:4px}
-.cat-label{position:absolute;left:calc(100% + 14px);top:50%;transform:translateY(-50%);font-size:clamp(13px,1.15vw,16px);font-weight:300;white-space:nowrap;opacity:0;transition:opacity .2s;text-shadow:0 1px 8px #00102d}
+.cat-label{display:none}
 .cat.selected .cat-label{opacity:1}
 .menu{position:absolute;top:36.2%;left:5.1%;width:min(490px,76vw);display:flex;flex-direction:column;align-items:stretch}
 .entry{display:flex;align-items:center;gap:13px;min-height:39px;padding:4px 14px;border:1px solid transparent;background:transparent;text-align:left;color:#dceaff;font-size:clamp(13px,1.15vw,16px);font-weight:300;cursor:pointer;text-shadow:0 1px 7px #00102d;transition:background .18s,border-color .18s,transform .18s}
