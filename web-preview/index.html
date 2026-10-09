@@ -3,60 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PS3X360 — Prévia XMB</title>
+<meta name="theme-color" content="#071b46">
+<title>PS3X360 — XMB Preview</title>
 <style>
-:root{color-scheme:dark;--cyan:#9feaff;--white:#f4fbff;--muted:#c8dce8}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Segoe UI,Arial,sans-serif;color:var(--white);overflow:hidden}
-body{background:radial-gradient(ellipse at 50% 110%,#2a90b5 0,#10547e 25%,#09233f 55%,#030b1b 100%)}
-body:before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(165deg,transparent 0 70px,#b6f1ff0a 71px 73px,transparent 74px 150px);pointer-events:none}
-.glow{position:fixed;left:-15%;top:25%;width:130%;height:50%;border-radius:50%;border-top:2px solid #a5edff66;transform:rotate(-8deg);filter:drop-shadow(0 0 18px #65dfff88);pointer-events:none}
-header{position:absolute;top:5%;left:5%;right:5%;display:flex;justify-content:space-between;align-items:center;text-shadow:0 2px 8px #000}
-.brand{font-size:clamp(22px,3vw,38px);font-weight:300;letter-spacing:.12em}.brand b{font-weight:700;color:var(--cyan)}.clock{font-size:clamp(14px,1.6vw,20px);color:#e2f8ff}
-.status{position:absolute;top:13%;left:5%;font-size:12px;letter-spacing:.2em;color:#a8d9ed;text-transform:uppercase}
-.categories{position:absolute;top:29%;left:5%;right:5%;display:flex;align-items:center;gap:clamp(22px,4vw,58px);height:84px;white-space:nowrap;overflow:visible}
-.category{border:0;background:transparent;color:#b9d7e7;font-size:clamp(13px,1.5vw,19px);padding:12px 0;cursor:pointer;opacity:.7;transition:.2s}
-.category .symbol{display:block;font-size:clamp(30px,4vw,48px);margin-bottom:10px;text-align:center;color:#b5e8fa;text-shadow:0 0 14px #56bce7}
-.category.active{opacity:1;transform:scale(1.14);color:white}.category.active .symbol{color:white;text-shadow:0 0 18px #a8efff}
-.panel{position:absolute;top:48%;left:7%;width:min(520px,86vw);padding:20px 24px;border-left:1px solid #c8f2ff88;background:linear-gradient(90deg,#07172dbb,#07172d22);backdrop-filter:blur(3px)}
-.panel h1{font-size:clamp(22px,3vw,32px);font-weight:300;margin:0 0 14px}.items{display:grid;gap:6px}
-.item{display:flex;align-items:center;gap:14px;padding:10px 14px;border:1px solid transparent;background:#06172a42;color:#d8eff9;font-size:clamp(14px,1.5vw,18px);cursor:pointer;text-align:left}
-.item .ico{width:28px;text-align:center;color:#9de6ff;font-size:22px}.item.active{background:linear-gradient(90deg,#75dfff55,#a2edff12);border-color:#c6f5ff88;color:white;box-shadow:0 0 20px #4cc9ff1a}
-.details{margin-top:18px;color:#c5dfeb;font-size:13px;line-height:1.55}.notice{color:#9fc7d9;font-size:11px;margin-top:12px}
-footer{position:absolute;bottom:5%;left:5%;right:5%;display:flex;justify-content:space-between;gap:12px;color:#b7d6e6;font-size:12px}.keys{display:flex;gap:14px;flex-wrap:wrap}.key{display:inline-flex;align-items:center;gap:5px}.pill{border:1px solid #c8f2ff99;border-radius:50%;width:18px;height:18px;display:inline-grid;place-items:center;color:white;font-size:10px}
-.toast{position:absolute;right:5%;bottom:13%;max-width:280px;padding:12px 16px;background:#071b30dd;border:1px solid #91e6ff66;color:#e9faff;display:none}
-@media(max-width:620px){.categories{top:23%;gap:18px;overflow-x:auto;padding:8px 4px}.category{min-width:62px}.panel{top:43%;left:5%;width:90%;padding:14px}.status{top:12%}footer{font-size:10px}.details{font-size:12px}}
+:root{color-scheme:dark;--text:#f4f8ff;--muted:#c3d4e9;--blue:#9ddaff;--glass:rgba(9,28,67,.28)}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--text)}
+body{background:radial-gradient(ellipse at 52% 100%,#65bde9 0,#2269b0 24%,#123c7a 49%,#081c49 76%,#06122f 100%)}
+.wallpaper{position:fixed;inset:0;overflow:hidden;pointer-events:none;background:linear-gradient(155deg,transparent 35%,rgba(119,211,255,.08) 48%,transparent 59%)}
+.wallpaper:before,.wallpaper:after{content:"";position:absolute;inset:-35%;border-radius:48%;transform:rotate(-19deg);border-top:1px solid #c4f1ff50;border-bottom:2px solid #8bdfff38;box-shadow:0 -12px 30px #65d8ff16,0 15px 36px #7de2ff12;animation:wave 19s ease-in-out infinite alternate}
+.wallpaper:after{inset:-45% -20% -10%;transform:rotate(12deg);border-top:2px solid #e3f8ff42;border-bottom:1px solid #9ee9ff55;animation-duration:26s;animation-direction:alternate-reverse}
+.wave-lines{position:fixed;inset:0;pointer-events:none;opacity:.35;background:repeating-linear-gradient(168deg,transparent 0 48px,#b9efff0b 49px,#d5f6ff1c 50px,transparent 52px 91px);mask-image:linear-gradient(transparent,#000 25%,#000 90%,transparent)}
+@keyframes wave{0%{translate:-2% -1%;rotate:-2deg}100%{translate:2% 2%;rotate:2deg}}
+header{position:absolute;top:4.5%;left:4.5%;right:4.5%;display:flex;align-items:center;justify-content:space-between;text-shadow:0 2px 10px #00112b}
+.logo{font-weight:300;font-size:clamp(23px,3vw,38px);letter-spacing:.08em}.logo strong{font-weight:650;color:#d7f4ff}.clock-wrap{display:flex;align-items:center;gap:18px;color:#edf8ff;font-size:clamp(14px,1.6vw,19px)}.clock-wrap .date{font-size:12px;color:#c4ddf1}
+.topline{position:absolute;top:13%;left:4.8%;font-size:11px;letter-spacing:.22em;color:#c6e6fb;text-transform:uppercase;text-shadow:0 1px 6px #00152c}
+.xmb{position:absolute;inset:0}
+.categories{position:absolute;left:4.5%;right:4.5%;top:27%;height:86px;display:flex;align-items:center;gap:clamp(22px,4vw,58px);overflow:visible}
+.category{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;min-width:clamp(48px,5.3vw,72px);padding:0;border:0;background:transparent;color:#d6eaff;cursor:pointer;opacity:.74;transition:transform .25s,opacity .25s;white-space:nowrap;text-shadow:0 2px 8px #00112a}
+.category .symbol{display:grid;place-items:center;height:48px;min-width:52px;font-size:clamp(30px,3.6vw,43px);font-weight:200;color:#d6f1ff;filter:drop-shadow(0 0 7px #7bdcff55)}
+.category .label{font-size:clamp(11px,1.05vw,14px);opacity:0;transition:opacity .2s}
+.category.active{opacity:1;transform:scale(1.13)}.category.active .symbol{color:white;filter:drop-shadow(0 0 13px #c0f2ff)}.category.active .label{opacity:1}
+.category.active:after{content:"";position:absolute;left:-18px;right:-18px;top:-12px;bottom:-15px;border-radius:50%;background:radial-gradient(ellipse,rgba(183,235,255,.17),transparent 68%);z-index:-1}
+.category:focus-visible,.item:focus-visible{outline:1px solid #e2f7ff;outline-offset:5px}
+.items-panel{position:absolute;left:5%;top:40%;width:min(490px,88vw);padding:4px 0 0 0;background:linear-gradient(90deg,rgba(6,24,58,.12),rgba(6,24,58,0));}
+.items{display:grid;gap:1px}
+.item{display:flex;align-items:center;gap:17px;min-height:44px;padding:7px 18px;border:1px solid transparent;border-radius:2px;background:transparent;color:#e2efff;text-align:left;font-size:clamp(14px,1.35vw,18px);font-weight:300;cursor:pointer;transition:background .16s,transform .16s;text-shadow:0 1px 6px #00132e}
+.item .ico{width:26px;text-align:center;font-size:23px;font-weight:200;color:#d3edff;opacity:.95}
+.item.active{background:linear-gradient(90deg,rgba(211,241,255,.34),rgba(171,221,255,.12) 70%,transparent);border-color:rgba(215,244,255,.22);box-shadow:0 0 18px #66bce919;transform:translateX(5px);color:#fff}
+.item.active .ico{color:white}
+.description{position:absolute;left:6.2%;top:72%;max-width:min(570px,85vw);color:#e1f0ff;font-size:clamp(12px,1.2vw,15px);line-height:1.55;text-shadow:0 1px 7px #00122d}
+.description .eyebrow{display:block;margin-bottom:6px;color:#a9d7f4;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+footer{position:absolute;bottom:4.2%;left:4.8%;right:4.8%;display:flex;align-items:end;justify-content:space-between;gap:12px;color:#d0e4f5;font-size:11px;text-shadow:0 1px 6px #00112a}
+.keyhelp{display:flex;gap:13px;flex-wrap:wrap}.key{display:inline-flex;align-items:center;gap:5px}.keycap{display:inline-grid;place-items:center;width:19px;height:19px;border:1px solid #e0f4ffbd;border-radius:50%;color:white;font-size:10px}.footnote{text-align:right;max-width:45%}
+.toast{position:absolute;right:5%;bottom:12%;max-width:320px;padding:13px 17px;border:1px solid #d5f2ff6b;background:rgba(5,22,52,.86);backdrop-filter:blur(12px);box-shadow:0 8px 35px #00112b55;color:white;font-size:13px;display:none}
+@media(max-width:650px){header{top:3.5%}.topline{top:11%}.categories{top:20%;left:3%;right:3%;gap:clamp(12px,3vw,20px);overflow-x:auto;overflow-y:hidden;padding:8px 6px 14px;scrollbar-width:none}.categories::-webkit-scrollbar{display:none}.category{min-width:53px}.category .symbol{height:38px;font-size:30px}.category .label{font-size:10px}.items-panel{top:37%;left:4%;width:92%}.item{min-height:42px;padding:6px 12px;gap:12px}.description{top:auto;bottom:15%;left:5%;max-width:90%;font-size:12px}footer{bottom:3%;align-items:start;font-size:9px}.keyhelp{gap:7px}.keycap{width:17px;height:17px}.footnote{max-width:35%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="glow"></div>
-<header><div class="brand">PS3<b>X360</b></div><div class="clock" id="clock">--:--</div></header>
-<div class="status">XMB interface concept · build de navegação</div>
-<nav class="categories" id="categories" aria-label="Categorias">
-<button class="category active" data-cat="jogos"><span class="symbol">◈</span>Jogos</button>
-<button class="category" data-cat="homebrew"><span class="symbol">⌘</span>Homebrew</button>
-<button class="category" data-cat="multimedia"><span class="symbol">♫</span>Música</button>
-<button class="category" data-cat="imagens"><span class="symbol">▧</span>Imagens</button>
-<button class="category" data-cat="sistema"><span class="symbol">⚙</span>Sistema</button>
+<div class="wallpaper"></div><div class="wave-lines"></div>
+<header><div class="logo">PS3<strong>X360</strong></div><div class="clock-wrap"><span class="date" id="date"></span><span id="clock">--:--</span></div></header>
+<div class="topline">XrossMediaBar · conceito para Xbox 360 RGH</div>
+<main class="xmb">
+<nav class="categories" id="categories" aria-label="Categorias XMB">
+<button class="category active" data-cat="jogos" aria-label="Jogos"><span class="symbol">▣</span><span class="label">Jogo</span></button>
+<button class="category" data-cat="homebrew" aria-label="Homebrew"><span class="symbol">⌂</span><span class="label">Homebrew</span></button>
+<button class="category" data-cat="multimedia" aria-label="Música"><span class="symbol">♫</span><span class="label">Música</span></button>
+<button class="category" data-cat="imagens" aria-label="Imagens"><span class="symbol">▧</span><span class="label">Foto</span></button>
+<button class="category" data-cat="video" aria-label="Vídeo"><span class="symbol">▶</span><span class="label">Vídeo</span></button>
+<button class="category" data-cat="rede" aria-label="Rede"><span class="symbol">◎</span><span class="label">Rede</span></button>
+<button class="category" data-cat="sistema" aria-label="Sistema"><span class="symbol">⚙</span><span class="label">Configurações</span></button>
 </nav>
-<section class="panel"><h1 id="heading">Jogos</h1><div class="items" id="items"></div><div class="details" id="details">Selecione um item para ver sua descrição.</div><div class="notice">Prévia visual no navegador — não inicia jogos nem acessa o hardware Xbox.</div></section>
+<section class="items-panel" aria-live="polite"><div class="items" id="items"></div></section>
+<div class="description" id="details"><span class="eyebrow">Selecionado</span>Use as setas para navegar pela interface.</div>
+</main>
 <div class="toast" id="toast" role="status"></div>
-<footer><div class="keys"><span class="key"><span class="pill">←</span><span class="pill">→</span> Categoria</span><span class="key"><span class="pill">↑</span><span class="pill">↓</span> Item</span><span class="key"><span class="pill">A</span> Selecionar</span></div><span>PS3X360 · projeto homebrew experimental</span></footer>
+<footer><div class="keyhelp"><span class="key"><span class="keycap">←</span><span class="keycap">→</span> Categoria</span><span class="key"><span class="keycap">↑</span><span class="keycap">↓</span> Item</span><span class="key"><span class="keycap">↵</span> Abrir</span><span class="key"><span class="keycap">B</span> Voltar</span></div><div class="footnote">PS3X360 · prévia visual, ainda não é um arquivo XEX</div></footer>
 <script>
 const data={
- jogos:{title:"Jogos",items:[["▣","Biblioteca de jogos","A futura biblioteca deverá listar jogos encontrados no armazenamento do console."],["▤","Recentemente jogados","Histórico local planejado; ainda não conectado ao Xbox."],["☆","Favoritos","Atalhos favoritos planejados."]]},
- homebrew:{title:"Homebrew",items:[["⌂","Aurora","O Aurora permanece como dashboard principal e opção de recuperação."],["◉","Emuladores","Atalhos para homebrews serão implementados após integração nativa."],["＋","Adicionar aplicativo","A descoberta de executáveis ainda não está implementada."]]},
- multimedia:{title:"Música",items:[["♫","Reprodutor de música","Interface de demonstração. Reprodução de áudio não está conectada."],["≋","Listas de reprodução","Recurso planejado para uma etapa posterior."]]},
- imagens:{title:"Imagens",items:[["▧","Galeria","A galeria real exigirá acesso ao sistema de arquivos do console."],["▣","Planos de fundo","Personalização visual planejada."]]},
- sistema:{title:"Sistema",items:[["⚙","Configurações","Opções visuais desta prévia."],["ⓘ","Sobre PS3X360","Dashboard homebrew em desenvolvimento; sem XEX disponível."],["↻","Retornar ao Aurora","O retorno automático só poderá ser implementado e testado no console."]]}
+ jogos:{items:[["▣","Biblioteca de jogos","Aqui ficará a biblioteca de jogos. A leitura real do armazenamento precisa ser implementada na versão nativa para Xbox 360."],["◷","Jogos recentes","Histórico de jogos — ainda não conectado ao console."],["☆","Favoritos","Acesso rápido aos seus jogos favoritos."],["＋","Atualizar biblioteca","A busca por jogos reais ainda não está implementada nesta prévia."]]},
+ homebrew:{items:[["⌂","Aurora","O Aurora é a dashboard de recuperação. O lançamento e retorno ao Aurora exigem integração nativa e testes no console."],["◉","Aplicativos homebrew","Atalhos de aplicativos homebrew serão adicionados quando houver suporte nativo."],["▤","Emuladores","Lista demonstrativa; não inicia emuladores."],["＋","Adicionar aplicativo","Descoberta de executáveis ainda não implementada."]]},
+ multimedia:{items:[["♫","Reproduzir música","Reprodução de áudio não está conectada nesta prévia."],["≋","Listas de reprodução","Listas locais poderão ser integradas na versão nativa."],["▤","Biblioteca de músicas","Acesso a arquivos ainda não implementado."]]},
+ imagens:{items:[["▧","Galeria de imagens","A galeria precisará de acesso ao sistema de arquivos do Xbox."],["▣","Planos de fundo","Personalização de fundo planejada."]]},
+ video:{items:[["▶","Biblioteca de vídeos","A reprodução real ainda não está conectada."],["▤","Vídeos recentes","Histórico demonstrativo."]]},
+ rede:{items:[["◎","Conexão de rede","Estado de rede real ainda não é lido."],["↗","Recursos online","Sem serviços online conectados nesta prévia."]]},
+ sistema:{items:[["⚙","Configurações da interface","Opções desta prévia são apenas visuais."],["◉","Tema e animações","O visual XMB usa animações CSS locais."],["ⓘ","Sobre PS3X360","Projeto experimental. Nenhum XEX nativo foi compilado ou validado ainda."],["↩","Retornar ao Aurora","Só poderá funcionar após implementação e teste no Xbox 360 RGH."]]}
 };
-let cat="jogos",idx=0;
-const cats=[...document.querySelectorAll(".category")],itemsEl=document.getElementById("items");
-function render(){cats.forEach(b=>b.classList.toggle("active",b.dataset.cat===cat));document.getElementById("heading").textContent=data[cat].title;itemsEl.innerHTML="";data[cat].items.forEach((it,i)=>{const b=document.createElement("button");b.className="item"+(i===idx?" active":"");b.innerHTML='<span class="ico">'+it[0]+'</span><span>'+it[1]+'</span>';b.onclick=()=>{idx=i;render();};itemsEl.appendChild(b)});document.getElementById("details").textContent=data[cat].items[idx]?.[2]||""}
-function moveCat(n){let i=cats.findIndex(b=>b.dataset.cat===cat);i=(i+n+cats.length)%cats.length;cat=cats[i].dataset.cat;idx=0;render()}
-function act(){const it=data[cat].items[idx];const t=document.getElementById("toast");t.textContent=it[1]+": "+it[2];t.style.display="block";setTimeout(()=>t.style.display="none",3200)}
-cats.forEach(b=>b.onclick=()=>{cat=b.dataset.cat;idx=0;render()});
-document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")moveCat(-1);else if(e.key==="ArrowRight")moveCat(1);else if(e.key==="ArrowUp"){idx=(idx-1+data[cat].items.length)%data[cat].items.length;render()}else if(e.key==="ArrowDown"){idx=(idx+1)%data[cat].items.length;render()}else if(e.key==="Enter"||e.key.toLowerCase()==="a")act()});
-function tick(){document.getElementById("clock").textContent=new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",minute:"2-digit"}).format(new Date())}tick();setInterval(tick,15000);render();
+const catButtons=[...document.querySelectorAll(".category")];
+const itemsEl=document.getElementById("items");
+let cat="jogos",idx=0,toastTimer;
+function render(){
+ catButtons.forEach(b=>{const on=b.dataset.cat===cat;b.classList.toggle("active",on);b.setAttribute("aria-current",on?"true":"false")});
+ itemsEl.replaceChildren();
+ data[cat].items.forEach((it,i)=>{
+  const b=document.createElement("button");b.className="item"+(i===idx?" active":"");b.type="button";
+  const ico=document.createElement("span");ico.className="ico";ico.textContent=it[0];
+  const label=document.createElement("span");label.textContent=it[1];b.append(ico,label);
+  b.addEventListener("click",()=>{idx=i;render()});b.addEventListener("dblclick",act);
+  itemsEl.appendChild(b);
+ });
+ const item=data[cat].items[idx];
+ const details=document.getElementById("details");details.replaceChildren();
+ const eyebrow=document.createElement("span");eyebrow.className="eyebrow";eyebrow.textContent="Selecionado · "+data[cat].items[idx][1];
+ details.append(eyebrow,document.createTextNode(item[2]));
+ const active=catButtons.find(b=>b.dataset.cat===cat);if(active&&window.innerWidth<650)active.scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+}
+function moveCat(n){let i=catButtons.findIndex(b=>b.dataset.cat===cat);cat=catButtons[(i+n+catButtons.length)%catButtons.length].dataset.cat;idx=0;render()}
+function moveItem(n){idx=(idx+n+data[cat].items.length)%data[cat].items.length;render()}
+function act(){const it=data[cat].items[idx],t=document.getElementById("toast");t.textContent=it[1]+" — "+it[2];t.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display="none",4200)}
+function back(){document.getElementById("toast").style.display="none"}
+catButtons.forEach(b=>b.addEventListener("click",()=>{cat=b.dataset.cat;idx=0;render()}));
+document.addEventListener("keydown",e=>{
+ if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Enter"," ","Escape","Backspace"].includes(e.key))e.preventDefault();
+ if(e.key==="ArrowLeft")moveCat(-1);else if(e.key==="ArrowRight")moveCat(1);else if(e.key==="ArrowUp")moveItem(-1);else if(e.key==="ArrowDown")moveItem(1);else if(e.key==="Enter"||e.key===" ")act();else if(e.key==="Escape"||e.key==="Backspace"||e.key.toLowerCase()==="b")back();
+});
+function updateClock(){const now=new Date();document.getElementById("clock").textContent=new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",minute:"2-digit"}).format(now);document.getElementById("date").textContent=new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"short",weekday:"short"}).format(now)}
+updateClock();setInterval(updateClock,15000);render();
+// Best-effort browser Gamepad API support for compatible USB/Bluetooth controllers.
+let lastButtons=[];
+function pollGamepad(){const pads=navigator.getGamepads?navigator.getGamepads():[];const pad=[...pads].find(Boolean);if(pad){const pressed=pad.buttons.map(b=>b.pressed);const edge=i=>pressed[i]&&!lastButtons[i];if(edge(14))moveCat(-1);if(edge(15))moveCat(1);if(edge(12))moveItem(-1);if(edge(13))moveItem(1);if(edge(0))act();if(edge(1))back();lastButtons=pressed}requestAnimationFrame(pollGamepad)}
+if(navigator.getGamepads)requestAnimationFrame(pollGamepad);
 </script>
 </body>
 </html>
