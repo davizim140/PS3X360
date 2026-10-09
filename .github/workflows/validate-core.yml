@@ -1,0 +1,33 @@
+name: Validate PS3X360 core (not XEX)
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows-core:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure CMake
+        run: cmake -S . -B build
+      - name: Build C++ core and host preview
+        run: cmake --build build --config Release
+      - name: Run automated tests
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Package Windows host preview
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifacts | Out-Null
+          Copy-Item build/Release/ps3x360_host_demo.exe artifacts/
+          Copy-Item README.md artifacts/
+          Compress-Archive -Path artifacts/* -DestinationPath PS3X360-Windows-HostPreview.zip -Force
+      - name: Upload host preview (NOT an Xbox executable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: PS3X360-Windows-HostPreview
+          path: PS3X360-Windows-HostPreview.zip
+          if-no-files-found: error
