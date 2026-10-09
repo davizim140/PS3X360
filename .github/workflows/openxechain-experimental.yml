@@ -1,0 +1,43 @@
+name: Experimental OpenXeChain toolchain build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-toolchain:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    steps:
+      - name: Install host build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build git python3 python3-yaml zlib1g-dev
+
+      - name: Checkout OpenXeChain build script and submodules
+        run: git clone --recurse-submodules https://github.com/OpenXeChain/buildscript.git openxechain
+
+      - name: Build experimental Xbox 360 toolchain
+        working-directory: openxechain
+        env:
+          PREFIX: ${{ github.workspace }}/openxechain-sysroot
+          PARALLEL: "2"
+        run: bash ./build-toolchain.sh
+
+      - name: Check toolchain outputs
+        run: |
+          test -x openxechain-sysroot/bin/clang
+          test -x openxechain-sysroot/bin/clang++
+          test -x openxechain-sysroot/bin/synthxex || test -f openxechain-sysroot/bin/synthxex
+          openxechain-sysroot/bin/clang --version
+          ls -lah openxechain-sysroot/bin
+
+      - name: Upload experimental toolchain
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenXeChain-toolchain-EXPERIMENTAL-not-validated-on-console
+          path: openxechain-sysroot/
+          if-no-files-found: error
+          retention-days: 7
