@@ -24,4 +24,12 @@ else()
 endif()
 add_test(NAME xmb_model_tests COMMAND ps3x360_core_tests)
 
+add_executable(ps3x360_host_demo src/host_demo.cpp)
+target_link_libraries(ps3x360_host_demo PRIVATE ps3x360_core)
+if(MSVC)
+  target_compile_options(ps3x360_host_demo PRIVATE /W4 /permissive-)
+else()
+  target_compile_options(ps3x360_host_demo PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+
 message(STATUS "PS3X360 core only: this build does NOT produce an Xbox 360 .xex.")
