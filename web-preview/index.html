@@ -1,112 +1,82 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#071b50">
-<title>PS3X360 — XMB</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061a49"><title>PS3X360 · XMB</title>
 <style>
-:root{color-scheme:dark;--white:#f4f9ff;--pale:#cfeaff;--cyan:#9ee8ff;--muted:#b5d4ef}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#061641;color:var(--white);font-family:"Segoe UI",Tahoma,Arial,sans-serif}
-body{isolation:isolate;background:radial-gradient(ellipse at 49% 88%,#2a8fda 0,#1457a5 25%,#0a3479 49%,#071d53 72%,#050f32 100%)}
-.wallpaper,.wallpaper:before,.wallpaper:after{position:fixed;inset:0;pointer-events:none}
-.wallpaper{z-index:-2;overflow:hidden;background:radial-gradient(ellipse at 48% 83%,#8dd8ff22,transparent 45%),linear-gradient(135deg,#07153b 0%,transparent 44%,#0d3976 100%)}
-.wallpaper:before{content:"";inset:-55% -20% -35%;border-radius:50%;border-top:2px solid #b4efff70;border-bottom:1px solid #a8e7ff48;transform:rotate(-22deg);box-shadow:0 -7px 35px #7ce0ff20,0 18px 50px #76d7ff20;animation:waveA 24s ease-in-out infinite alternate}
-.wallpaper:after{content:"";inset:-40% -35% -60%;border-radius:50%;border-top:1px solid #d2f7ff5c;border-bottom:2px solid #8cddff66;transform:rotate(14deg);box-shadow:0 -10px 28px #83dcff19;animation:waveB 30s ease-in-out infinite alternate}
-.ribbons{position:fixed;z-index:-1;inset:0;overflow:hidden;pointer-events:none;opacity:.58}
-.ribbon{position:absolute;width:150vw;height:43vh;left:-20vw;border-radius:50%;border-top:1px solid #a4e7ff55;box-shadow:0 -10px 30px #66caff0c}
-.ribbon.one{top:45%;transform:rotate(-13deg)}.ribbon.two{top:58%;transform:rotate(8deg);border-color:#d4f6ff35}.ribbon.three{top:70%;transform:rotate(-5deg);border-color:#6ecfff44}
-@keyframes waveA{from{transform:translate(-2%,-1%) rotate(-24deg)}to{transform:translate(2%,2%) rotate(-18deg)}}
-@keyframes waveB{from{transform:translate(1%,2%) rotate(11deg)}to{transform:translate(-2%,-2%) rotate(17deg)}}
-header{position:absolute;top:4.1%;left:4.4%;right:4.4%;display:flex;align-items:center;justify-content:space-between;text-shadow:0 2px 12px #00102c}
-.brand{font-size:clamp(23px,2.8vw,36px);font-weight:200;letter-spacing:.09em;color:#e9f6ff}.brand span{font-weight:650;color:white}
-.system-info{display:flex;align-items:center;gap:16px;color:#e7f4ff;font-size:clamp(14px,1.4vw,18px)}
-.online{display:flex;align-items:center;gap:6px;color:#d5f0ff;font-size:12px}.online:before{content:"";width:7px;height:7px;border-radius:50%;background:#8df5ff;box-shadow:0 0 10px #9cf6ff}
-.date{color:#c7e0f5;font-size:12px}
-.top-label{position:absolute;top:13%;left:4.6%;font-size:10px;letter-spacing:.24em;color:#c2e4fb;text-transform:uppercase;text-shadow:0 2px 8px #00102a}
-.xmb{position:absolute;inset:0}
-.category-rail{position:absolute;top:27.5%;left:4.2%;right:4.2%;height:75px;display:flex;align-items:center;gap:clamp(25px,4vw,58px);padding:0 10px;border-bottom:1px solid #d4f4ff0b}
-.category{position:relative;flex:0 0 auto;width:clamp(39px,4vw,53px);height:65px;border:0;padding:0;background:none;color:#d8edff;opacity:.78;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .22s ease,opacity .22s ease,filter .22s ease}
-.category svg{width:100%;height:100%;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 7px #77cfff44)}
-.category.active{opacity:1;transform:scale(1.23);color:#fff;filter:drop-shadow(0 0 11px #b3ecff9c)}
-.category.active:before{content:"";position:absolute;inset:-15px -19px;background:radial-gradient(ellipse,rgba(190,238,255,.22),transparent 70%);z-index:-1}
-.category:focus-visible,.item:focus-visible{outline:1px solid white;outline-offset:5px}
-.category-name{position:absolute;left:calc(100% + 15px);top:50%;transform:translateY(-50%);font-size:clamp(14px,1.35vw,18px);font-weight:300;white-space:nowrap;color:#fff;text-shadow:0 1px 9px #00102a;opacity:0;pointer-events:none}
-.category.active .category-name{opacity:1}
-.menu-wrap{position:absolute;left:4.7%;top:38.5%;width:min(465px,72vw);min-height:190px}
-.menu{display:grid;gap:0}
-.item{display:flex;align-items:center;gap:14px;width:100%;min-height:39px;padding:5px 14px;border:1px solid transparent;background:transparent;color:#d8eaff;text-align:left;font-size:clamp(14px,1.25vw,17px);font-weight:300;letter-spacing:.005em;cursor:pointer;text-shadow:0 1px 8px #00112b;transition:background .18s ease,border-color .18s ease,transform .18s ease}
-.item .item-icon{width:20px;flex:0 0 20px;text-align:center;color:#e5f7ff;font-size:17px;opacity:.9}
-.item.active{color:white;background:linear-gradient(90deg,#e0f5ff45 0%,#b9e8ff1c 65%,transparent 100%);border-color:#d5f3ff2d;transform:translateX(4px);text-shadow:0 1px 10px #00122b}
-.item.active .item-icon{filter:drop-shadow(0 0 5px #aeeaff)}
-.description{position:absolute;left:5.3%;top:70%;width:min(550px,83vw);font-size:12px;font-weight:300;line-height:1.65;color:#d4eaff;text-shadow:0 1px 8px #00102b;opacity:.9}
-.description .selected-title{display:block;font-size:14px;color:#fff;margin-bottom:3px;font-weight:400}
-.bottom-line{position:absolute;left:4.6%;right:4.6%;bottom:4.1%;height:28px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#c8e2f6;font-size:10px;text-shadow:0 1px 8px #00102b}
-.controls{display:flex;gap:15px;align-items:center;flex-wrap:wrap}.hint{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}.button-icon{display:inline-grid;place-items:center;width:17px;height:17px;border:1px solid #e4f7ffcc;border-radius:50%;font-size:9px;color:white;line-height:1}
-.project-label{text-align:right;opacity:.86}
-.toast{position:absolute;right:4.5%;bottom:10%;width:min(340px,88vw);padding:13px 16px;background:#071a42c9;border:1px solid #c4ecff66;box-shadow:0 8px 35px #00102c44;backdrop-filter:blur(12px);font-size:12px;line-height:1.55;display:none}
-@media(max-width:650px){header{top:3.5%;left:4%;right:4%}.brand{font-size:23px}.system-info{gap:8px}.online{display:none}.date{font-size:10px}.top-label{top:11%;font-size:9px}.category-rail{top:21%;left:2%;right:2%;gap:clamp(17px,4.5vw,27px);overflow-x:auto;overflow-y:visible;scrollbar-width:none;padding:0 12px}.category-rail::-webkit-scrollbar{display:none}.category{width:38px;height:53px}.category-name{top:auto;left:50%;bottom:-18px;transform:translateX(-50%);font-size:10px}.menu-wrap{top:34%;left:4%;width:92%}.item{min-height:38px;padding:5px 10px;font-size:14px}.description{top:auto;bottom:13%;left:5%;width:90%;font-size:11px}.bottom-line{bottom:2.5%;left:4%;right:4%;font-size:9px;align-items:flex-end}.controls{gap:8px}.project-label{max-width:28%;line-height:1.4}}
+:root{color-scheme:dark;--text:#f5f8ff;--muted:#d2e0f5;--line:#d7eaff55}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#071943;color:var(--text);font-family:Tahoma,"Segoe UI",Arial,sans-serif}
+body{background:radial-gradient(ellipse at 54% 87%,#327fbd 0,#1d5797 22%,#10366f 47%,#091e50 73%,#061337 100%);isolation:isolate}
+.bg{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;background:linear-gradient(110deg,#04112d55,transparent 45%,#0c4c8b22)}
+.wave{position:absolute;width:150vw;height:110vh;left:-25vw;top:25vh;border-radius:50%;border-top:1px solid #d9f4ff48;box-shadow:0 -12px 32px #92dfff0b;animation:drift 28s ease-in-out infinite alternate}
+.wave.w2{top:38vh;left:-35vw;transform:rotate(-14deg);border-color:#a9e8ff55;animation-duration:35s}
+.wave.w3{top:50vh;left:-20vw;transform:rotate(13deg);border-color:#e0f8ff37;animation-duration:31s}
+.wave.w4{top:63vh;left:-38vw;transform:rotate(-7deg);border-color:#a0e5ff38;animation-duration:40s}
+@keyframes drift{from{translate:-2% -1%;rotate:-3deg}to{translate:2% 1%;rotate:3deg}}
+#dust{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}.dot{position:absolute;width:2px;height:2px;border-radius:50%;background:#d9f5ff;opacity:0;box-shadow:0 0 7px #bcecff;animation:float linear infinite}
+@keyframes float{0%{transform:translate3d(0,25px,0);opacity:0}15%{opacity:.45}85%{opacity:.2}100%{transform:translate3d(24px,-110vh,0);opacity:0}}
+header{position:absolute;top:4%;left:4.2%;right:4.2%;display:flex;justify-content:space-between;align-items:center;text-shadow:0 1px 10px #00102d}
+.logo{font-size:clamp(20px,2.1vw,29px);font-weight:200;letter-spacing:.06em;color:#e8f4ff}.logo b{font-weight:600;color:#fff}
+.status{display:flex;align-items:center;gap:17px;font-size:clamp(12px,1.1vw,15px);color:#edf6ff}.status .user{font-size:12px;color:#d1e8ff}.status .user:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#9eeaff;margin-right:7px;box-shadow:0 0 8px #9eeaff}
+#date{font-size:11px;color:#c4d9ef}
+main{position:absolute;inset:0}.categories{position:absolute;top:25.5%;left:5.3%;right:4%;display:flex;align-items:center;gap:clamp(22px,3.55vw,51px);height:65px}
+.cat{position:relative;width:clamp(31px,3vw,43px);height:55px;flex:0 0 auto;padding:0;border:0;background:none;color:#e5f2ff;opacity:.83;cursor:pointer;transition:transform .32s ease,opacity .25s ease,color .25s ease}
+.cat svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 4px #bdeaff55);overflow:visible}
+.cat.selected{transform:scale(1.24);opacity:1;color:#fff;filter:drop-shadow(0 0 9px #d0f2ff88)}
+.cat.selected:after{content:"";position:absolute;z-index:-1;left:-20px;right:-20px;top:-16px;bottom:-16px;background:radial-gradient(ellipse,#b9eaff28,transparent 72%)}
+.cat:focus-visible,.entry:focus-visible{outline:1px solid white;outline-offset:4px}
+.cat-label{position:absolute;left:calc(100% + 14px);top:50%;transform:translateY(-50%);font-size:clamp(13px,1.15vw,16px);font-weight:300;white-space:nowrap;opacity:0;transition:opacity .2s;text-shadow:0 1px 8px #00102d}
+.cat.selected .cat-label{opacity:1}
+.menu{position:absolute;top:36.2%;left:5.1%;width:min(490px,76vw);display:flex;flex-direction:column;align-items:stretch}
+.entry{display:flex;align-items:center;gap:13px;min-height:39px;padding:4px 14px;border:1px solid transparent;background:transparent;text-align:left;color:#dceaff;font-size:clamp(13px,1.15vw,16px);font-weight:300;cursor:pointer;text-shadow:0 1px 7px #00102d;transition:background .18s,border-color .18s,transform .18s}
+.entry .glyph{width:19px;flex:0 0 19px;text-align:center;font-size:16px;color:#f3faff}
+.entry.current{color:#fff;background:linear-gradient(90deg,#eaf8ff40,#d6efff19 70%,transparent);border-color:#e0f5ff24;transform:translateX(3px)}
+.entry.current .glyph{filter:drop-shadow(0 0 4px #b5eaff)}
+.detail{position:absolute;top:68%;left:6%;width:min(560px,85vw);font-size:12px;line-height:1.7;font-weight:300;color:#d5e7f8;text-shadow:0 1px 8px #00102d}
+.detail strong{display:block;color:white;font-size:13px;font-weight:400;margin-bottom:2px}
+footer{position:absolute;left:4.3%;right:4.3%;bottom:4%;display:flex;justify-content:space-between;align-items:center;gap:10px;color:#d3e5f7;font-size:10px;text-shadow:0 1px 7px #00102d}
+.hints{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.hint{display:flex;align-items:center;gap:5px;white-space:nowrap}.key{display:inline-grid;place-items:center;border:1px solid #edf8ffcc;border-radius:50%;width:16px;height:16px;font-size:9px;color:#fff}
+.version{text-align:right;opacity:.82}
+.toast{display:none;position:absolute;right:4.3%;bottom:10%;width:min(330px,88vw);padding:12px 15px;background:#071b43d9;border:1px solid #d6f1ff50;backdrop-filter:blur(10px);font-size:12px;line-height:1.6;box-shadow:0 8px 30px #00102d55}
+@media(max-width:650px){header{top:3%;left:4%;right:4%}.logo{font-size:20px}.status{gap:8px}.status .user{display:none}#date{font-size:10px}.categories{top:20%;left:3%;right:2%;gap:clamp(16px,4vw,26px);overflow-x:auto;overflow-y:visible;scrollbar-width:none;padding:0 10px}.categories::-webkit-scrollbar{display:none}.cat{width:34px;height:48px}.cat-label{left:50%;top:auto;bottom:-17px;transform:translateX(-50%);font-size:10px}.menu{top:32%;left:4%;width:92%}.entry{min-height:37px;padding:4px 9px;font-size:13px}.detail{top:auto;bottom:13%;left:5%;width:90%;font-size:11px}footer{bottom:2.5%;left:4%;right:4%;font-size:9px;align-items:flex-end}.hints{gap:7px}.version{max-width:25%;line-height:1.4}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-</style>
-</head>
+</style></head>
 <body>
-<div class="wallpaper"></div><div class="ribbons"><i class="ribbon one"></i><i class="ribbon two"></i><i class="ribbon three"></i></div>
-<header><div class="brand">PS3<span>X360</span></div><div class="system-info"><span class="online">Conectado</span><span class="date" id="date"></span><span id="clock">--:--</span></div></header>
-<div class="top-label">XrossMediaBar · interface experimental</div>
-<main class="xmb">
-<nav class="category-rail" id="categories" aria-label="Categorias XMB">
-<button class="category active" data-cat="jogos" aria-label="Jogo" title="Jogo"><svg viewBox="0 0 48 60" aria-hidden="true"><path d="M13 17h22a8 8 0 0 1 7.5 6l3 15a5 5 0 0 1-8 5l-7-6H17l-7 6a5 5 0 0 1-8-5l3-15a8 8 0 0 1 8-6Z"/><path d="M12 24v10M7 29h10M32 26h.1M37 32h.1"/></svg><span class="category-name">Jogo</span></button>
-<button class="category" data-cat="homebrew" aria-label="Homebrew" title="Homebrew"><svg viewBox="0 0 48 60" aria-hidden="true"><path d="M5 28 24 10l19 18M11 24v22h26V24M20 46V32h8v14"/><path d="M17 19V12h5"/></svg><span class="category-name">Homebrew</span></button>
-<button class="category" data-cat="multimedia" aria-label="Música" title="Música"><svg viewBox="0 0 48 60" aria-hidden="true"><path d="M19 40V14l22-5v27"/><ellipse cx="12" cy="42" rx="7" ry="5"/><ellipse cx="34" cy="38" rx="7" ry="5"/></svg><span class="category-name">Música</span></button>
-<button class="category" data-cat="imagens" aria-label="Foto" title="Foto"><svg viewBox="0 0 48 60" aria-hidden="true"><rect x="4" y="14" width="40" height="31" rx="2"/><circle cx="16" cy="24" r="4"/><path d="m7 41 12-11 8 7 6-5 8 9"/></svg><span class="category-name">Foto</span></button>
-<button class="category" data-cat="video" aria-label="Vídeo" title="Vídeo"><svg viewBox="0 0 48 60" aria-hidden="true"><rect x="4" y="15" width="40" height="30" rx="3"/><path d="m20 22 12 8-12 8Z"/></svg><span class="category-name">Vídeo</span></button>
-<button class="category" data-cat="rede" aria-label="Rede" title="Rede"><svg viewBox="0 0 48 60" aria-hidden="true"><circle cx="24" cy="30" r="19"/><ellipse cx="24" cy="30" rx="8" ry="19"/><path d="M6 24h36M6 36h36"/></svg><span class="category-name">Rede</span></button>
-<button class="category" data-cat="amigos" aria-label="Amigos" title="Amigos"><svg viewBox="0 0 48 60" aria-hidden="true"><circle cx="18" cy="20" r="7"/><circle cx="33" cy="24" r="5"/><path d="M4 43c0-8 6-13 14-13s14 5 14 13M29 33c7-1 13 3 14 10"/></svg><span class="category-name">Amigos</span></button>
-<button class="category" data-cat="sistema" aria-label="Configurações" title="Configurações"><svg viewBox="0 0 48 60" aria-hidden="true"><path d="m20 9 8 0 2 6 5 3 6-1 4 7-4 5v6l4 5-4 7-7-1-4 4h-8l-2-6-6-3-6 1-4-7 4-5v-6l-4-5 4-7 7 1 3-6Z" transform="translate(0 0) scale(.85) translate(4 5)"/><circle cx="24" cy="30" r="7"/></svg><span class="category-name">Configurações</span></button>
-</nav>
-<section class="menu-wrap"><div class="menu" id="menu"></div></section>
-<div class="description" id="description"></div>
-</main>
+<div class="bg"><i class="wave"></i><i class="wave w2"></i><i class="wave w3"></i><i class="wave w4"></i></div><div id="dust"></div>
+<header><div class="logo">PS3<b>X360</b></div><div class="status"><span class="user">Utilizador local</span><span id="date"></span><span id="clock">--:--</span></div></header>
+<main><nav class="categories" id="categories" aria-label="Categorias XMB">
+<button class="cat selected" data-cat="jogos" aria-label="Jogo" title="Jogo"><svg viewBox="0 0 42 52"><path d="M11 15h20a7 7 0 0 1 7 6l2 13a4.5 4.5 0 0 1-7.2 4L26 33h-10l-6.8 5A4.5 4.5 0 0 1 2 34l2-13a7 7 0 0 1 7-6Z"/><path d="M12 21v10M7 26h10M29 23h.1M34 29h.1"/></svg><span class="cat-label">Jogo</span></button>
+<button class="cat" data-cat="homebrew" aria-label="Homebrew" title="Homebrew"><svg viewBox="0 0 42 52"><path d="m3 25 18-17 18 17M8 21v23h26V21M17 44V30h8v14M29 14V8h5v11"/></svg><span class="cat-label">Homebrew</span></button>
+<button class="cat" data-cat="musica" aria-label="Música" title="Música"><svg viewBox="0 0 42 52"><path d="M18 35V12l19-4v23"/><ellipse cx="11" cy="37" rx="7" ry="5"/><ellipse cx="30" cy="33" rx="7" ry="5"/></svg><span class="cat-label">Música</span></button>
+<button class="cat" data-cat="foto" aria-label="Foto" title="Foto"><svg viewBox="0 0 42 52"><rect x="3" y="12" width="36" height="28" rx="2"/><circle cx="13" cy="21" r="3"/><path d="m5 36 11-10 7 6 6-5 8 9"/></svg><span class="cat-label">Foto</span></button>
+<button class="cat" data-cat="video" aria-label="Vídeo" title="Vídeo"><svg viewBox="0 0 42 52"><rect x="3" y="13" width="36" height="27" rx="2"/><path d="m17 19 12 7.5L17 34Z"/></svg><span class="cat-label">Vídeo</span></button>
+<button class="cat" data-cat="rede" aria-label="Rede" title="Rede"><svg viewBox="0 0 42 52"><circle cx="21" cy="26" r="17"/><ellipse cx="21" cy="26" rx="7" ry="17"/><path d="M5 21h32M5 31h32"/></svg><span class="cat-label">Rede</span></button>
+<button class="cat" data-cat="amigos" aria-label="Amigos" title="Amigos"><svg viewBox="0 0 42 52"><circle cx="15" cy="17" r="6"/><circle cx="29" cy="21" r="4.5"/><path d="M3 40c0-8 5-13 12-13s12 5 12 13M27 30c6 0 11 4 12 10"/></svg><span class="cat-label">Amigos</span></button>
+<button class="cat" data-cat="sistema" aria-label="Configurações" title="Configurações"><svg viewBox="0 0 42 52"><path d="m18 7 6 0 2 5 4 2 5-1 3 6-3 4v5l3 4-3 6-5-1-4 3h-6l-2-5-4-2-5 1-3-6 3-4v-5l-3-4 3-6 5 1 2-5Z"/><circle cx="21" cy="26" r="6"/></svg><span class="cat-label">Configurações</span></button>
+</nav><section class="menu" id="menu" aria-label="Itens da categoria"></section><div class="detail" id="detail"></div></main>
 <div class="toast" id="toast" role="status"></div>
-<footer class="bottom-line"><div class="controls"><span class="hint"><span class="button-icon">←</span><span class="button-icon">→</span> Mudar categoria</span><span class="hint"><span class="button-icon">↑</span><span class="button-icon">↓</span> Selecionar</span><span class="hint"><span class="button-icon">×</span> Abrir</span><span class="hint"><span class="button-icon">○</span> Voltar</span></div><span class="project-label">PS3X360 · conceito XMB</span></footer>
+<footer><div class="hints"><span class="hint"><span class="key">←</span><span class="key">→</span> Categoria</span><span class="hint"><span class="key">↑</span><span class="key">↓</span> Selecionar</span><span class="hint"><span class="key">×</span> Confirmar</span><span class="hint"><span class="key">○</span> Voltar</span></div><span class="version">PS3X360 · prévia de interface</span></footer>
 <script>
-const svgIcons={folder:"▣",recent:"◷",star:"☆",refresh:"↻",home:"⌂",apps:"▤",plus:"＋",music:"♫",list:"≋",photo:"▧",video:"▶",globe:"◎",user:"●",settings:"⚙",info:"ⓘ",back:"↩",network:"⌁"};
-const data={
- jogos:{items:[["folder","Biblioteca de jogos","A biblioteca será conectada ao armazenamento do Xbox quando a versão nativa estiver implementada."],["recent","Jogos recentes","Histórico de jogos ainda não integrado ao console."],["star","Favoritos","Atalhos para os jogos favoritos."],["refresh","Atualizar lista","A descoberta de jogos ainda não funciona nesta prévia."]]},
- homebrew:{items:[["home","Aurora","O Aurora continuará sendo a dashboard de recuperação. Abrir o Aurora requer implementação nativa."],["apps","Aplicativos homebrew","Atalhos de aplicativos ainda não conectados ao console."],["folder","Emuladores","Lista demonstrativa; nenhum emulador é iniciado nesta versão."],["plus","Adicionar aplicativo","Detecção de arquivos XEX ainda não implementada."]]},
- multimedia:{items:[["music","Reproduzir música","A reprodução de áudio precisa ser integrada à versão nativa."],["list","Listas de reprodução","Listas de reprodução locais ainda não implementadas."],["folder","Biblioteca de músicas","O acesso aos arquivos do console ainda não está disponível."]]},
- imagens:{items:[["photo","Galeria de fotos","A galeria precisa de acesso ao sistema de arquivos do Xbox."],["folder","Planos de fundo","Personalização do plano de fundo planejada."]]},
- video:{items:[["video","Biblioteca de vídeos","Reprodução de vídeo não está conectada nesta prévia."],["recent","Vídeos recentes","Histórico ainda não implementado."]]},
- rede:{items:[["globe","Navegador de internet","Atalho demonstrativo; não abre um navegador do Xbox."],["network","Conexão de rede","O estado real da rede ainda não é consultado."],["info","Serviços online","Nenhum serviço online está conectado."]]},
- amigos:{items:[["user","Lista de amigos","Lista demonstrativa; não acessa Xbox Live."],["info","Mensagens","Mensagens não estão implementadas nesta prévia."]]},
- sistema:{items:[["settings","Configurações da interface","As opções de sistema ainda não estão conectadas ao console."],["photo","Tema e aparência","A interface usa um plano de fundo animado em CSS."],["info","Sobre PS3X360","Projeto homebrew experimental. Esta página é uma prévia web, não um executável XEX."],["back","Retornar ao Aurora","Retorno ao Aurora só poderá funcionar após integração nativa e testes no Xbox 360 RGH."]]}
+const symbols={folder:"▤",recent:"◷",star:"☆",refresh:"↻",home:"⌂",apps:"▦",plus:"＋",music:"♫",list:"≋",photo:"▧",video:"▶",globe:"◎",user:"♙",settings:"⚙",info:"ⓘ",back:"↩",network:"⌁"};
+const content={
+ jogos:[["folder","Biblioteca de jogos","Espaço reservado para a biblioteca de jogos do Xbox 360."],["recent","Jogos recentes","Os jogos iniciados recentemente aparecerão aqui quando houver integração nativa."],["star","Favoritos","Acesso rápido aos seus jogos favoritos."],["refresh","Atualizar biblioteca","A leitura real dos dispositivos de armazenamento ainda não está ligada à prévia web."]],
+ homebrew:[["home","Aurora","O Aurora é o ponto de retorno previsto; abrir outro aplicativo exige integração nativa."],["apps","Aplicativos homebrew","Lista de aplicativos homebrew, ainda não detectada no console."],["folder","Emuladores","Atalhos de emuladores ainda não configurados."],["plus","Adicionar aplicativo","A descoberta de arquivos XEX ainda não está implementada."]],
+ musica:[["music","Reproduzir música","A reprodução de música precisa ser integrada ao sistema nativo."],["list","Listas de reprodução","Suporte a listas locais ainda não implementado."],["folder","Biblioteca de músicas","Os arquivos do console não são acessíveis pela prévia no navegador."]],
+ foto:[["photo","Galeria de fotos","A galeria depende de acesso nativo aos arquivos do console."],["folder","Planos de fundo","A personalização do fundo poderá ser adicionada posteriormente."]],
+ video:[["video","Biblioteca de vídeos","A reprodução de vídeo ainda não está integrada."],["recent","Vídeos recentes","O histórico ainda não está implementado."]],
+ rede:[["globe","Navegador de internet","Atalho visual; esta prévia não inicia um navegador no Xbox."],["network","Conexão de rede","O estado da rede do console ainda não é consultado."],["info","Serviços online","Nenhum serviço online está conectado nesta versão."]],
+ amigos:[["user","Lista de amigos","Não acessa Xbox Live nem uma lista real de amigos."],["info","Mensagens","Mensagens ainda não implementadas."]],
+ sistema:[["settings","Configurações da interface","As opções de sistema ainda não estão conectadas ao console."],["photo","Tema e aparência","O fundo azul com ondas é animado por CSS."],["info","Sobre PS3X360","Projeto experimental. Esta página é uma prévia web, não um executável XEX."],["back","Voltar ao Aurora","Só poderá funcionar depois da implementação nativa e de testes no Xbox 360 RGH."]]
 };
-const categories=[...document.querySelectorAll(".category")],menu=document.getElementById("menu");
-let category="jogos",selected=0,toastTimeout,lastPad=[];
-function render(){
- categories.forEach(b=>{const active=b.dataset.cat===category;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});
- menu.replaceChildren();
- data[category].items.forEach((item,index)=>{
-  const button=document.createElement("button");button.className="item"+(index===selected?" active":"");button.type="button";
-  const icon=document.createElement("span");icon.className="item-icon";icon.textContent=svgIcons[item[0]]||"•";
-  const text=document.createElement("span");text.textContent=item[1];button.append(icon,text);
-  button.addEventListener("click",()=>{selected=index;render()});button.addEventListener("dblclick",activate);menu.append(button);
- });
- const item=data[category].items[selected],desc=document.getElementById("description");desc.replaceChildren();
- const title=document.createElement("span");title.className="selected-title";title.textContent=item[1];desc.append(title,document.createTextNode(item[2]));
- if(innerWidth<650){const active=categories.find(b=>b.dataset.cat===category);active?.scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"})}
-}
-function changeCategory(n){const i=categories.findIndex(b=>b.dataset.cat===category);category=categories[(i+n+categories.length)%categories.length].dataset.cat;selected=0;render()}
-function changeItem(n){selected=(selected+n+data[category].items.length)%data[category].items.length;render()}
-function activate(){const item=data[category].items[selected],toast=document.getElementById("toast");toast.textContent=item[1]+" — "+item[2];toast.style.display="block";clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>toast.style.display="none",4500)}
-function back(){const toast=document.getElementById("toast");toast.style.display="none"}
-categories.forEach(b=>b.addEventListener("click",()=>{category=b.dataset.cat;selected=0;render()}));
-document.addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Enter"," ","Escape","Backspace"].includes(e.key))e.preventDefault();if(e.key==="ArrowLeft")changeCategory(-1);else if(e.key==="ArrowRight")changeCategory(1);else if(e.key==="ArrowUp")changeItem(-1);else if(e.key==="ArrowDown")changeItem(1);else if(e.key==="Enter"||e.key===" ")activate();else if(e.key==="Escape"||e.key==="Backspace"||e.key.toLowerCase()==="o")back()});
-function updateTime(){const now=new Date();document.getElementById("clock").textContent=new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",minute:"2-digit"}).format(now);document.getElementById("date").textContent=new Intl.DateTimeFormat("pt-BR",{weekday:"short",day:"2-digit",month:"short"}).format(now)}
-updateTime();setInterval(updateTime,15000);render();
-function gamepadLoop(){const pads=navigator.getGamepads?.()||[];const pad=Array.from(pads).find(Boolean);if(pad){const pressed=pad.buttons.map(b=>b.pressed),edge=i=>pressed[i]&&!lastPad[i];if(edge(14))changeCategory(-1);if(edge(15))changeCategory(1);if(edge(12))changeItem(-1);if(edge(13))changeItem(1);if(edge(0))activate();if(edge(1))back();lastPad=pressed}requestAnimationFrame(gamepadLoop)}
-if(navigator.getGamepads)requestAnimationFrame(gamepadLoop);
-</script>
-</body>
-</html>
+const cats=[...document.querySelectorAll(".cat")],menu=document.getElementById("menu");let cat="jogos",idx=0,lastButtons=[],toastTimer;
+function render(){cats.forEach(b=>{const yes=b.dataset.cat===cat;b.classList.toggle("selected",yes);b.setAttribute("aria-pressed",String(yes))});menu.replaceChildren();content[cat].forEach((it,i)=>{const b=document.createElement("button");b.type="button";b.className="entry"+(i===idx?" current":"");const g=document.createElement("span");g.className="glyph";g.textContent=symbols[it[0]]||"•";const t=document.createElement("span");t.textContent=it[1];b.append(g,t);b.addEventListener("click",()=>{idx=i;render()});b.addEventListener("dblclick",activate);menu.append(b)});const d=document.getElementById("detail");d.replaceChildren();const strong=document.createElement("strong");strong.textContent=content[cat][idx][1];d.append(strong,document.createTextNode(content[cat][idx][2]));if(innerWidth<650)cats.find(b=>b.dataset.cat===cat)?.scrollIntoView({block:"nearest",inline:"nearest"})}
+function categoryMove(n){let p=cats.findIndex(b=>b.dataset.cat===cat);cat=cats[(p+n+cats.length)%cats.length].dataset.cat;idx=0;render()}
+function itemMove(n){idx=(idx+n+content[cat].length)%content[cat].length;render()}
+function activate(){const it=content[cat][idx],t=document.getElementById("toast");t.textContent=it[1]+" — "+it[2];t.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display="none",4300)}
+function back(){document.getElementById("toast").style.display="none"}
+cats.forEach(b=>b.addEventListener("click",()=>{cat=b.dataset.cat;idx=0;render()}));
+document.addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Enter"," ","Escape","Backspace"].includes(e.key))e.preventDefault();if(e.key==="ArrowLeft")categoryMove(-1);else if(e.key==="ArrowRight")categoryMove(1);else if(e.key==="ArrowUp")itemMove(-1);else if(e.key==="ArrowDown")itemMove(1);else if(e.key==="Enter"||e.key===" ")activate();else if(e.key==="Escape"||e.key==="Backspace")back()});
+function time(){const d=new Date();document.getElementById("clock").textContent=new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",minute:"2-digit"}).format(d);document.getElementById("date").textContent=new Intl.DateTimeFormat("pt-BR",{weekday:"short",day:"2-digit",month:"short"}).format(d)}time();setInterval(time,15000);
+const dust=document.getElementById("dust");for(let i=0;i<38;i++){const d=document.createElement("i");d.className="dot";d.style.left=(Math.random()*100)+"%";d.style.top=(Math.random()*100)+"%";d.style.animationDuration=(13+Math.random()*23)+"s";d.style.animationDelay=(-Math.random()*30)+"s";d.style.opacity=".25";dust.append(d)}render();
+function padLoop(){const p=Array.from(navigator.getGamepads?.()||[]).find(Boolean);if(p){const now=p.buttons.map(b=>b.pressed),edge=i=>now[i]&&!lastButtons[i];if(edge(14))categoryMove(-1);if(edge(15))categoryMove(1);if(edge(12))itemMove(-1);if(edge(13))itemMove(1);if(edge(0))activate();if(edge(1))back();lastButtons=now}requestAnimationFrame(padLoop)}if(navigator.getGamepads)requestAnimationFrame(padLoop);
+</script></body></html>
