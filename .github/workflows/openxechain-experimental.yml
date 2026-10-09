@@ -20,7 +20,12 @@ jobs:
           sudo apt-get install -y build-essential clang cmake ninja-build git python3 python3-yaml zlib1g-dev libxml2-dev libzstd-dev libedit-dev libffi-dev libncurses-dev
 
       - name: Checkout OpenXeChain build script and submodules
-        run: git clone --recurse-submodules https://github.com/OpenXeChain/buildscript.git openxechain
+        run: |
+          git clone https://github.com/OpenXeChain/buildscript.git openxechain
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+          git -C openxechain submodule sync --recursive
+          git -C openxechain submodule update --init --recursive
 
       - name: Build experimental Xbox 360 toolchain
         working-directory: openxechain
