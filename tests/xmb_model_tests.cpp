@@ -44,7 +44,9 @@ int main() {
   check(model.move_category(-1), "left navigation wraps");
   check(model.current_category().id == "network", "left wraps to last category");
 
-  // Boundary and no-op behavior: important for predictable controller navigation.
+  // Boundary and no-op behavior: run against Users, which has multiple items.
+  check(model.select_category(0), "users category selected for item boundary tests");
+  check(model.current_category().id == "users", "item boundary tests use users category");
   check(model.move_item(1), "item advances from first entry");
   check(model.current_item().id == "settings", "item selection advances to second entry");
   check(model.move_item(-1), "item moves back to first entry");
