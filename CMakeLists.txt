@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.21)
+project(PS3X360Core VERSION 0.1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_library(ps3x360_core src/core/xmb_model.cpp)
+target_include_directories(ps3x360_core PUBLIC src/core)
+
+if(MSVC)
+  target_compile_options(ps3x360_core PRIVATE /W4 /permissive-)
+else()
+  target_compile_options(ps3x360_core PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+
+enable_testing()
+add_executable(ps3x360_core_tests tests/xmb_model_tests.cpp)
+target_link_libraries(ps3x360_core_tests PRIVATE ps3x360_core)
+if(MSVC)
+  target_compile_options(ps3x360_core_tests PRIVATE /W4 /permissive-)
+else()
+  target_compile_options(ps3x360_core_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+add_test(NAME xmb_model_tests COMMAND ps3x360_core_tests)
+
+message(STATUS "PS3X360 core only: this build does NOT produce an Xbox 360 .xex.")
