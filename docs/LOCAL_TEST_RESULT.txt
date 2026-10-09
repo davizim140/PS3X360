@@ -1,0 +1,9 @@
+Resultado local reproduzível (ambiente Linux de verificação; não é Xbox 360):
+
+cmake -S . -B build                  PASS
+cmake --build build --config Release PASS
+ctest --test-dir build -C Release --output-on-failure PASS
+
+Resumo CTest: 100% tests passed, 0 tests failed.
+Inclui testes do modelo XMB e do mapeamento lógico D-pad/A/B.
+Este resultado não prova compilação XEX nem execução em hardware.
