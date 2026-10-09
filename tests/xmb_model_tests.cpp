@@ -43,6 +43,26 @@ int main() {
   check(model.current_category().id == "users", "right wraps to first category");
   check(model.move_category(-1), "left navigation wraps");
   check(model.current_category().id == "network", "left wraps to last category");
+
+  // Boundary and no-op behavior: important for predictable controller navigation.
+  check(model.move_item(1), "item advances from first entry");
+  check(model.current_item().id == "settings", "item selection advances to second entry");
+  check(model.move_item(-1), "item moves back to first entry");
+  check(model.current_item().id == "profile", "item navigation returns to first entry");
+  check(model.move_item(-1), "item navigation wraps backward");
+  check(model.current_item().id == "settings", "up from first item wraps to last item");
+  check(model.move_item(1), "item navigation wraps forward");
+  check(model.current_item().id == "profile", "down from last item wraps to first item");
+  check(!model.select_category(model.selected_category()), "selecting current category is a no-op");
+  check(!model.select_item(model.selected_item()), "selecting current item is a no-op");
+  check(model.selected_item() == 0, "no-op selection preserves current item");
+
+  XmbModel single({Category{"only", "Only", {MenuItem{"one", "One"}}}});
+  check(!single.move_category(1), "single-category horizontal movement is a no-op");
+  check(!single.move_item(1), "single-item vertical movement is a no-op");
+  check(single.current_category().id == "only", "single-category model remains valid");
+  check(single.current_item().id == "one", "single-item model remains selected");
+
   check_throws([] { XmbModel invalid({}); }, "empty category list rejected");
   check_throws([] { XmbModel invalid({Category{"empty","Empty",{}}}); }, "category without items rejected");
 
