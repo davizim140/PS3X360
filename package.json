@@ -1,12 +1,11 @@
 {
-  "name": "ps3x360",
+  "name": "ps3x360-fresh",
   "version": "0.1.0",
   "private": true,
-  "description": "Prévia web da interface XMB-inspired do PS3X360",
   "type": "module",
   "scripts": {
-    "dev": "vite web-preview --host 0.0.0.0",
-    "build": "vite build web-preview --outDir ../dist",
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
   "devDependencies": {
