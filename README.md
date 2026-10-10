@@ -1,36 +1,29 @@
-# PS3X360 — XMB-inspired Xbox 360 dashboard
+# PS3X360 — recomeço limpo
 
-Projeto homebrew em desenvolvimento para uma dashboard do Xbox 360 RGH com interface inspirada no XMB clássico do PlayStation 3.
+Esta branch `fresh-start` inicia uma nova implementação da interface inspirada no XMB original do PlayStation 3. A interface web é independente do código C++ antigo que continua na branch `main`.
 
-## Estado real
-- Núcleo C++17 da navegação XMB, mapeamento lógico de botões e testes automatizados.
-- Build de desenvolvimento do núcleo para Windows 10/11 com CMake.
-- Prévia interativa de terminal para experimentar a navegação no PC (`ps3x360_host_demo`), sem alegar compatibilidade com Xbox.
-- CI via GitHub Actions para Windows e Ubuntu.
-- **Ainda não produz um .xex.** O XDK/toolchain nativa necessária para compilar e empacotar um XEX não está incluída. Não declare este build como executável do Xbox 360.
-- Mantenha o Aurora como dashboard de recuperação até haver um XEX real compilado e testado no console.
+## Abrir no StackBlitz
 
-## Build Windows
-Instale CMake 3.21+ e Visual Studio 2022 com “Desenvolvimento para desktop com C++”. No PowerShell, na raiz:
+Abra: https://stackblitz.com/github/davizim140/PS3X360/tree/fresh-start
 
-```powershell
-cmake -S . -B build
-cmake --build build --config Release
-ctest --test-dir build -C Release --output-on-failure
+O projeto usa Vite e JavaScript, sem instalação local. Se o preview não iniciar automaticamente, execute no terminal integrado do StackBlitz:
+
+```sh
+npm run dev
 ```
 
-Isso compila e testa apenas o núcleo C++, não gera XEX.
+Para validar a compilação web:
 
-## Publicar alterações
-O projeto está no repositório https://github.com/davizim140/PS3X360.
+```sh
+npm run build
+```
 
-Veja `docs/BUILD_WINDOWS.md`, `docs/HOST_PREVIEW.md`, `docs/CONTROLLER_INPUT.md`, `docs/XEX_STATUS.md` e `docs/TEST_PLAN.md` antes de qualquer teste no console.
+## Estado honesto do projeto
 
-## Abrir a prévia no StackBlitz (sem instalar nada)
+- Interface web: primeira base funcional, com categorias XMB, seleção por teclado, relógio, ondas animadas e mensagens de estado.
+- Os itens de mídia, usuários, rede e configurações são atualmente demonstrativos; não alegam acesso a recursos nativos do console.
+- XEX: **ainda não produzido nem validado**.
+- A workflow experimental OpenXeChain na branch `main` apenas tenta construir a toolchain. Toolchain construída não é o mesmo que compilar este projeto como XEX.
+- O próximo passo de portabilidade será identificar a API gráfica/input do runtime compatível e criar um alvo nativo mínimo. Nenhum binário será declarado válido sem artefato real, inspeção e teste.
 
-1. Abra o [projeto PS3X360 no StackBlitz](https://stackblitz.com/github/davizim140/PS3X360).
-2. Aguarde o ambiente instalar a dependência Vite no navegador.
-3. A prévia web está na pasta `web-preview/`; o comando `npm run dev` serve essa pasta.
-4. Alterações feitas no editor do StackBlitz são temporárias até você salvá-las/commitá-las no GitHub.
-
-O StackBlitz é usado para desenvolver e testar a interface web. **Ele não transforma o projeto em um XEX**; a compilação nativa continua sendo tentada separadamente pelo GitHub Actions.
+Mantenha o Aurora como dashboard de recuperação até um XEX real ser compilado e testado no console.
