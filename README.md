@@ -25,3 +25,12 @@ Isso compila e testa apenas o núcleo C++, não gera XEX.
 O projeto está no repositório https://github.com/davizim140/PS3X360.
 
 Veja `docs/BUILD_WINDOWS.md`, `docs/HOST_PREVIEW.md`, `docs/CONTROLLER_INPUT.md`, `docs/XEX_STATUS.md` e `docs/TEST_PLAN.md` antes de qualquer teste no console.
+
+## Abrir a prévia no StackBlitz (sem instalar nada)
+
+1. Abra o [projeto PS3X360 no StackBlitz](https://stackblitz.com/github/davizim140/PS3X360).
+2. Aguarde o ambiente instalar a dependência Vite no navegador.
+3. A prévia web está na pasta `web-preview/`; o comando `npm run dev` serve essa pasta.
+4. Alterações feitas no editor do StackBlitz são temporárias até você salvá-las/commitá-las no GitHub.
+
+O StackBlitz é usado para desenvolver e testar a interface web. **Ele não transforma o projeto em um XEX**; a compilação nativa continua sendo tentada separadamente pelo GitHub Actions.
