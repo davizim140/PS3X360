@@ -32,7 +32,21 @@ jobs:
         env:
           PREFIX: ${{ github.workspace }}/openxechain-sysroot
           PARALLEL: "2"
-        run: bash ./build-toolchain.sh
+        run: |
+          if ! bash ./build-toolchain.sh; then
+            echo '===== OpenXeChain build.log (last 250 lines) ====='
+            tail -n 250 build.log || true
+            exit 1
+          fi
+
+      - name: Upload build diagnostic log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenXeChain-build-diagnostic-log
+          path: openxechain/build.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Check toolchain outputs
         run: |
