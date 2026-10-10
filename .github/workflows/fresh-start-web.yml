@@ -1,0 +1,40 @@
+name: Fresh-start web validation
+
+on:
+  push:
+    branches: [fresh-start]
+    paths:
+      - 'index.html'
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/fresh-start-web.yml'
+  pull_request:
+    branches: [fresh-start]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install
+      - name: Build web interface
+        run: npm run build
+      - name: Upload web preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PS3X360-web-preview
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
